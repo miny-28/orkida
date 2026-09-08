@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View , Pressable} from 'react-native';
 import { useState  } from 'react';
+import { lightColors, darkColors } from '@/components/theme/colors';
 
 
 
@@ -7,7 +8,10 @@ function myApp(){
 
     const [selectedTab, setSelectedTab] = useState(0);
     const [showAbout, setShowAbout] = useState(false);
-    
+    const [isDark, setIsDark] = useState(false);
+    const colors = isDark ? darkColors : lightColors;
+    const styles = createStyles(colors);
+
     return (
         <View style={styles.container}>
             <View style={styles.device}>
@@ -80,9 +84,15 @@ function myApp(){
 )}
     
               </View>
+              <Pressable style={styles.themeButton}
+  onPress={() => setIsDark(!isDark)}
+>
+  <Text style={styles.themeText}>
+    {isDark ? "☀" : "☾"}
+  </Text>
+</Pressable>
               
          </View>
-
          <View style={styles.decorations}>
           <Text>✦</Text>
           <Text>✧</Text>
@@ -90,15 +100,16 @@ function myApp(){
         </View>
 
  <View style={styles.controls}>
+    {/* this controls for app */}
         </View>
-
       </View>
     </View>
 
     );
 }
 
-const styles = StyleSheet.create({
+const createStyles = (colors: typeof lightColors) =>
+  StyleSheet.create({
  
           container: {
         flex:1,
@@ -109,7 +120,7 @@ const styles = StyleSheet.create({
 width:300,
 height:600,
 borderRadius:20,
-backgroundColor:"#f2bdcd",
+backgroundColor:colors.background,
  alignItems:'center',
         justifyContent:'flex-start',
 paddingTop:40,
@@ -118,7 +129,7 @@ paddingTop:40,
     screen:{
         width:290,
         height:270,
-        backgroundColor:"#fdf0f1",
+        backgroundColor: colors.screen,
         borderRadius:10,
         alignItems:'center',
         justifyContent: 'center'
@@ -134,7 +145,7 @@ paddingTop:40,
     },
     appName:{
  fontSize:13,
- color:"#811d60",
+ color:colors.primary,
 alignSelf:'center',
 position:'absolute',
 top:10,
@@ -142,7 +153,7 @@ fontWeight:'bold',
  
     },
     tabs:{
-color:"#9a4a7f",
+color:colors.secondary,
 alignSelf:'flex-start',
 fontSize:10,
 marginLeft:10,
@@ -157,12 +168,13 @@ height:35,
         height:140,
         borderRadius:10,
        
-        backgroundColor:"#fdf0f1",
+        backgroundColor:colors.screen,
         justifyContent:'flex-start',
 
     },
     selectedTab:{
-       backgroundColor:"#ffdae9",
+       backgroundColor:colors.selected,
+       borderRadius:10,
     },
     
     pressable:{
@@ -257,7 +269,22 @@ position: 'absolute',
  fontSize: 10,
   color: "#811d60",
   fontWeight: 'bold',
- }
-
+ },
+ themeButton:{
+position: "absolute",
+  top: 10,
+  right: 38,
+  width: 22,
+  height: 22,
+  borderRadius: 11,
+  backgroundColor: "#ffdae9",
+  alignItems: "center",
+  justifyContent: "center",
+ },
+themeText:{
+ color: "#811d60",
+  fontSize: 12,
+  fontWeight: "bold",
+},
 });
 export default myApp;
