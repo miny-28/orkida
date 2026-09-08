@@ -6,14 +6,21 @@ import { useState  } from 'react';
 function myApp(){
 
     const [selectedTab, setSelectedTab] = useState(0);
+    const [showAbout, setShowAbout] = useState(false);
     
     return (
-
         <View style={styles.container}>
             <View style={styles.device}>
             <View style={styles.screen}>
               
               <Text style={styles.appName}>✦orkida✦</Text>
+
+       <Pressable
+       style={styles.aboutButton}
+      onPress={() => setShowAbout(true)}>
+      <Text style={styles.aboutText}>?</Text>
+     </Pressable>
+
               <View style={styles.content}>
 
                 {/* THE MENU */} 
@@ -35,8 +42,8 @@ function myApp(){
        onPress={()=>setSelectedTab(2)}>
        <Text style={[styles.tabs ]}>
         {selectedTab===2 ?"▶ P ☰" :"P ☰"}
-        </Text>
-       </Pressable>
+        </Text> 
+        </Pressable>
 
         <Pressable style={[styles.pressable,selectedTab === 3 && styles.selectedTab ]} 
         onPress={()=>setSelectedTab(3)}>
@@ -51,7 +58,27 @@ function myApp(){
 
        </View>
 
+       {/* card for about app*/}
+    {showAbout && (
+  <View style={styles.aboutcard}>
+    <View style={styles.aboutscreen}>
+      <Text style={styles.abouttitle}>About orkida</Text>
 
+   <View>
+  <Text style={styles.aboutdetails}>. S for choose song u needed</Text>
+  <Text style={styles.aboutdetails}>. A for more information about the artist</Text>
+  <Text style={styles.aboutdetails}>. P for show your playlist</Text>
+  <Text style={styles.aboutdetails}>. F for show your Fav songs</Text>
+</View>
+
+    </View>
+
+    <Pressable  style={styles.closeButton}onPress={() => setShowAbout(false)}>
+      <Text style={styles.closeText}>X</Text>
+    </Pressable>
+  </View>
+)}
+    
               </View>
               
          </View>
@@ -160,6 +187,77 @@ height:35,
     height:140,
     width:190,
     borderRadius:6,
-    }
+    },
+
+    aboutButton:{
+position:"absolute",
+top:10,
+ right: 10,
+  width: 22,
+  height: 22,
+  borderRadius: 11,
+  backgroundColor: "#ffdae9",
+  alignItems: 'center',
+  justifyContent: 'center',
+
+    },
+
+    aboutText:{
+ color: "#811d60",
+  fontSize: 12,
+  fontWeight: 'bold',
+    },
+
+    aboutcard:{
+position: 'absolute',
+  top: 35,
+  left: 10,
+  right: 10,
+  bottom: 10,
+  alignItems: 'center',
+  justifyContent: 'center',
+
+    },
+ aboutscreen:{
+width: 220,
+  minHeight: 150,
+  backgroundColor: "#fff5f7",
+  borderRadius: 12,
+  padding: 15,
+  alignItems: 'center',
+  borderWidth: 1,
+  borderColor: "#9a4a7f",
+
+ },
+ aboutdetails:{
+fontSize: 10,
+  color: "#9a4a7f",
+  lineHeight: 16,
+  textAlign: 'center',
+  fontWeight:"bold"
+ },
+ abouttitle:{
+ fontSize: 19,
+  color: "#811d60",
+  fontWeight: 'bold',
+  marginBottom: 12,
+ },
+ closeButton:{
+position: 'absolute',
+  top: 6,
+  right: 6,
+  width: 20,
+  height: 20,
+  borderRadius: 10,
+  backgroundColor: "#ffdae9",
+  alignItems: 'center',
+  justifyContent: 'center',
+ },
+ closeText:{
+ fontSize: 10,
+  color: "#811d60",
+  fontWeight: 'bold',
+ }
+
 });
 export default myApp;
