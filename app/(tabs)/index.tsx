@@ -1,7 +1,10 @@
 import { StyleSheet, Text, View , Pressable} from 'react-native';
 import { useState  } from 'react';
 import { lightColors, darkColors } from '@/components/theme/colors';
-
+import Songs from '@/components/screens/songs';
+import Artists from '@/components/screens/artists';
+import Playlists from '@/components/screens/playlists';
+import Favorites from '@/components/screens/Favorites';
 
 
 function myApp(){
@@ -58,8 +61,10 @@ function myApp(){
        </View>
        {/* THE MAIN SCREEN */}
        <View style={styles.contentArea}>
-
-
+{selectedTab === 0 && <Songs colors={colors} />}
+{selectedTab === 1 && <Artists colors={colors} />}
+{selectedTab === 2 && <Playlists colors={colors} />}
+{selectedTab === 3 && <Favorites colors={colors} />}
        </View>
 
        {/* card for about app*/}
@@ -101,6 +106,7 @@ function myApp(){
 
  <View style={styles.controls}>
     {/* this controls for app */}
+
         </View>
       </View>
     </View>
@@ -202,16 +208,16 @@ height:35,
     },
 
     aboutButton:{
-position:"absolute",
-top:10,
- right: 10,
-  width: 22,
-  height: 22,
+
+  position: "absolute",
+  top: 10,
+  right: 10,
+  width: 30,
+  height: 30,
   borderRadius: 11,
   backgroundColor: "#ffdae9",
   alignItems: 'center',
   justifyContent: 'center',
-
     },
 
     aboutText:{
@@ -255,12 +261,12 @@ fontSize: 10,
   marginBottom: 12,
  },
  closeButton:{
-position: 'absolute',
-  top: 6,
-  right: 6,
-  width: 20,
-  height: 20,
-  borderRadius: 10,
+ position: "absolute",
+  top: 10,
+  right: 10,
+  width: 30,
+  height: 30,
+  borderRadius: 11,
   backgroundColor: "#ffdae9",
   alignItems: 'center',
   justifyContent: 'center',
@@ -273,14 +279,15 @@ position: 'absolute',
  themeButton:{
 position: "absolute",
   top: 10,
-  right: 38,
-  width: 22,
-  height: 22,
+  right: 45,
+  width: 30,
+  height: 30,
   borderRadius: 11,
   backgroundColor: "#ffdae9",
   alignItems: "center",
-  justifyContent: "center",
- },
+  justifyContent: "center", 
+},
+
 themeText:{
  color: "#811d60",
   fontSize: 12,
