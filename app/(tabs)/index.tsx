@@ -1,297 +1,668 @@
-import { StyleSheet, Text, View , Pressable} from 'react-native';
-import { useState  } from 'react';
+import { StyleSheet, Text, View, Pressable } from 'react-native';
+import { useState } from 'react';
+
 import { lightColors, darkColors } from '@/components/theme/colors';
+
 import Songs from '@/components/screens/songs';
 import Artists from '@/components/screens/artists';
 import Playlists from '@/components/screens/playlists';
-import Favorites from '@/components/screens/Favorites';
+import Favorites from '@/components/screens/favorites';
 
+function myApp() {
+  const [selectedTab, setSelectedTab] = useState(0);
+  const [showAbout, setShowAbout] = useState(false);
+  const [isDark, setIsDark] = useState(false);
 
-function myApp(){
+  const colors = isDark ? darkColors : lightColors;
+  const styles = createStyles(colors);
 
-    const [selectedTab, setSelectedTab] = useState(0);
-    const [showAbout, setShowAbout] = useState(false);
-    const [isDark, setIsDark] = useState(false);
-    const colors = isDark ? darkColors : lightColors;
-    const styles = createStyles(colors);
+  return (
+    <View style={styles.container}>
 
-    return (
-        <View style={styles.container}>
-            <View style={styles.device}>
-            <View style={styles.screen}>
-              
-              <Text style={styles.appName}>✦orkida✦</Text>
+      {/* DEVICE */}
+      <View style={styles.device}>
 
-       <Pressable
-       style={styles.aboutButton}
-      onPress={() => setShowAbout(true)}>
-      <Text style={styles.aboutText}>?</Text>
-     </Pressable>
+        {/* APP SCREEN */}
+        <View style={styles.screen}>
 
-              <View style={styles.content}>
+          {/* APP NAME */}
+          <Text style={styles.appName}>✦ ORKIDA ✦</Text>
 
-                {/* THE MENU */} 
-<View style={styles.menu}>
-                 <Pressable style={[styles.pressable,selectedTab === 0 && styles.selectedTab ]} 
-                 onPress={()=>setSelectedTab(0)}>
-              <Text style={[styles.tabs ]}>
-                  {selectedTab===0 ?"▶ S ♪" :"S ♪"} 
-                 </Text> 
-                 </Pressable>
+          {/* ABOUT BUTTON */}
+          <Pressable
+            style={styles.aboutButton}
+            onPress={() => setShowAbout(true)}
+          >
+            <Text style={styles.aboutText}>?</Text>
+          </Pressable>
 
-                  <Pressable style={[styles.pressable,selectedTab === 1 && styles.selectedTab ]} 
-                  onPress={()=>setSelectedTab(1)}>
-                    <Text style={[styles.tabs]}> 
-                         {selectedTab===1 ?"▶ A ♙" :"A ♙"} </Text> 
-                  </Pressable>
-      
-       <Pressable style={[styles.pressable,selectedTab === 2 && styles.selectedTab ]}  
-       onPress={()=>setSelectedTab(2)}>
-       <Text style={[styles.tabs ]}>
-        {selectedTab===2 ?"▶ P ☰" :"P ☰"}
-        </Text> 
-        </Pressable>
+          {/* THEME BUTTON */}
+          <Pressable
+            style={styles.themeButton}
+            onPress={() => setIsDark(!isDark)}
+          >
+            <Text style={styles.themeText}>
+              {isDark ? '☀' : '☾'}
+            </Text>
+          </Pressable>
 
-        <Pressable style={[styles.pressable,selectedTab === 3 && styles.selectedTab ]} 
-        onPress={()=>setSelectedTab(3)}>
-       <Text style={[styles.tabs ]}> 
-         {selectedTab===3 ?"▶ F ♡" :"F ♡"}
-         </Text> 
-       </Pressable>
-       </View>
-       {/* THE MAIN SCREEN */}
-       <View style={styles.contentArea}>
-{selectedTab === 0 && <Songs colors={colors} />}
-{selectedTab === 1 && <Artists colors={colors} />}
-{selectedTab === 2 && <Playlists colors={colors} />}
-{selectedTab === 3 && <Favorites colors={colors} />}
-       </View>
+          {/* MAIN CONTENT */}
+          <View style={styles.content}>
 
-       {/* card for about app*/}
-    {showAbout && (
-  <View style={styles.aboutcard}>
-    <View style={styles.aboutscreen}>
-      <Text style={styles.abouttitle}>About orkida</Text>
+            {/* SIDE MENU */}
+            <View style={styles.menu}>
 
-   <View>
-  <Text style={styles.aboutdetails}>. S for choose song u needed</Text>
-  <Text style={styles.aboutdetails}>. A for more information about the artist</Text>
-  <Text style={styles.aboutdetails}>. P for show your playlist</Text>
-  <Text style={styles.aboutdetails}>. F for show your Fav songs</Text>
-</View>
+              {/* SONGS */}
+              <Pressable
+                style={[
+                  styles.pressable,
+                  selectedTab === 0 && styles.selectedTab,
+                ]}
+                onPress={() => setSelectedTab(0)}
+              >
+                <Text style={styles.tabs}>
+                  {selectedTab === 0 ? '▶ S ♪' : 'S ♪'}
+                </Text>
+              </Pressable>
 
-    </View>
+              {/* ARTISTS */}
+              <Pressable
+                style={[
+                  styles.pressable,
+                  selectedTab === 1 && styles.selectedTab,
+                ]}
+                onPress={() => setSelectedTab(1)}
+              >
+                <Text style={styles.tabs}>
+                  {selectedTab === 1 ? '▶ A ♙' : 'A ♙'}
+                </Text>
+              </Pressable>
 
-    <Pressable  style={styles.closeButton}onPress={() => setShowAbout(false)}>
-      <Text style={styles.closeText}>X</Text>
-    </Pressable>
-  </View>
-)}
-    
+              {/* PLAYLISTS */}
+              <Pressable
+                style={[
+                  styles.pressable,
+                  selectedTab === 2 && styles.selectedTab,
+                ]}
+                onPress={() => setSelectedTab(2)}
+              >
+                <Text style={styles.tabs}>
+                  {selectedTab === 2 ? '▶ P ☰' : 'P ☰'}
+                </Text>
+              </Pressable>
+
+              {/* FAVORITES */}
+              <Pressable
+                style={[
+                  styles.pressable,
+                  selectedTab === 3 && styles.selectedTab,
+                ]}
+                onPress={() => setSelectedTab(3)}
+              >
+                <Text style={styles.tabs}>
+                  {selectedTab === 3 ? '▶ F ♡' : 'F ♡'}
+                </Text>
+              </Pressable>
+
+            </View>
+
+            {/* MAIN SCREEN AREA */}
+            <View style={styles.contentArea}>
+
+              {selectedTab === 0 && <Songs colors={colors} />}
+
+              {selectedTab === 1 && <Artists colors={colors} />}
+
+              {selectedTab === 2 && <Playlists colors={colors} />}
+
+              {selectedTab === 3 && <Favorites colors={colors} />}
+
+            </View>
+
+          </View>
+
+          {/* ABOUT CARD */}
+          {showAbout && (
+            <View style={styles.aboutcard}>
+
+              <View style={styles.aboutscreen}>
+
+                <Text style={styles.abouttitle}>
+                  About ORKIDA
+                </Text>
+
+                <View style={styles.aboutInfo}>
+
+                  <Text style={styles.aboutdetails}>
+                    • S for choosing your songs
+                  </Text>
+
+                  <Text style={styles.aboutdetails}>
+                    • A for artist information
+                  </Text>
+
+                  <Text style={styles.aboutdetails}>
+                    • P for your playlists
+                  </Text>
+
+                  <Text style={styles.aboutdetails}>
+                    • F for your favorite songs
+                  </Text>
+
+                </View>
+
               </View>
-              <Pressable style={styles.themeButton}
-  onPress={() => setIsDark(!isDark)}
->
-  <Text style={styles.themeText}>
-    {isDark ? "☀" : "☾"}
-  </Text>
-</Pressable>
-              
-         </View>
-         <View style={styles.decorations}>
-          <Text>✦</Text>
-          <Text>✧</Text>
-          <Text>✦</Text>
-        </View>
 
- <View style={styles.controls}>
-    {/* this controls for app */}
+              {/* CLOSE BUTTON */}
+              <Pressable
+                style={styles.closeButton}
+                onPress={() => setShowAbout(false)}
+              >
+                <Text style={styles.closeText}>×</Text>
+              </Pressable>
+
+            </View>
+          )}
 
         </View>
+
+        {/* DECORATIONS */}
+        <View style={styles.decorations}>
+          <Text style={styles.decoration}>✦</Text>
+          <Text style={styles.decoration}>✧</Text>
+          <Text style={styles.decoration}>✦</Text>
+        </View>
+
+        {/* PLAYER CONTROLS */}
+        <View style={styles.controls}>
+
+          <Pressable style={styles.controlButton}>
+            <Text style={styles.controlText}>◀</Text>
+          </Pressable>
+
+          <Pressable style={styles.playButton}>
+            <Text style={styles.playText}>▶</Text>
+          </Pressable>
+
+          <Pressable style={styles.controlButton}>
+            <Text style={styles.controlText}>▶</Text>
+          </Pressable>
+
+        </View>
+
       </View>
-    </View>
 
-    );
+    </View>
+  );
 }
 
 const createStyles = (colors: typeof lightColors) =>
   StyleSheet.create({
- 
-          container: {
-        flex:1,
-        alignItems:'center',
-        justifyContent:'center', },
-   
-    device:{
-width:300,
-height:600,
-borderRadius:20,
-backgroundColor:colors.background,
- alignItems:'center',
-        justifyContent:'flex-start',
-paddingTop:40,
+
+    /* =========================
+       MAIN CONTAINER
+    ========================= */
+
+    container: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: colors.background,
     },
 
-    screen:{
-        width:290,
-        height:270,
-        backgroundColor: colors.screen,
-        borderRadius:10,
-        alignItems:'center',
-        justifyContent: 'center'
+    /* =========================
+       DEVICE
+    ========================= */
+
+    device: {
+      width: 330,
+      height: 520,
+      borderRadius: 28,
+      backgroundColor: colors.background,
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+
+      paddingTop: 42,
+
+      borderWidth: 3,
+      borderColor: colors.primary,
+
+      shadowOpacity: 0.2,
+      shadowRadius: 10,
+      shadowOffset: {
+        width: 0,
+        height: 5,
+      },
+
+      elevation: 8,
     },
 
-    controls:{
+    /* =========================
+       SCREEN
+    ========================= */
+
+    screen: {
+      width: 300,
+      height: 350,
+
+      backgroundColor: colors.screen,
+
+      borderRadius: 14,
+
+      alignItems: 'center',
+      justifyContent: 'center',
+
+      borderWidth: 2,
+      borderColor: colors.secondary,
+
+      overflow: 'hidden',
     },
 
-    decorations:{ 
-        flexDirection:'row',
-        paddingTop:10,
-        
-    },
-    appName:{
- fontSize:13,
- color:colors.primary,
-alignSelf:'center',
-position:'absolute',
-top:10,
-fontWeight:'bold',
- 
-    },
-    tabs:{
-color:colors.secondary,
-alignSelf:'flex-start',
-fontSize:10,
-marginLeft:10,
-fontWeight:'bold',
-height:35,
+    /* =========================
+       APP NAME
+    ========================= */
 
-    },
-    
-    menu:{
-       
-       width:55,
-        height:140,
-        borderRadius:10,
-       
-        backgroundColor:colors.screen,
-        justifyContent:'flex-start',
+    appName: {
+      position: 'absolute',
 
-    },
-    selectedTab:{
-       backgroundColor:colors.selected,
-       borderRadius:10,
-    },
-    
-    pressable:{
-        width:55,
-        height:35,
-        justifyContent: 'center',
-        alignSelf: 'flex-start',
+      top: 11,
+
+      alignSelf: 'center',
+
+      fontSize: 17,
+
+      color: colors.primary,
+
+      fontWeight: 'bold',
+
+      letterSpacing: 2,
     },
 
-    content:{
-        flexDirection:'row',
-        alignItems: 'center',
-        width: 270,
-  height: 140,
-  
-        
+    /* =========================
+       CONTENT
+    ========================= */
+
+    content: {
+      flexDirection: 'row',
+
+      alignItems: 'stretch',
+
+      width: 285,
+      height: 220,
+
+      marginTop: 25,
     },
 
-    contentArea:{
-       flex:1,
-       backgroundColor:"#ffffff",
-    height:140,
-    width:190,
-    borderRadius:6,
+    /* =========================
+       SIDE MENU
+    ========================= */
+
+    menu: {
+      width: 65,
+      height: 220,
+
+      borderRadius: 12,
+
+      backgroundColor: colors.background,
+
+      justifyContent: 'flex-start',
+
+      paddingTop: 8,
+      paddingHorizontal: 5,
+
+      borderWidth: 1,
+      borderColor: colors.secondary,
     },
 
-    aboutButton:{
+    /* =========================
+       MENU BUTTON
+    ========================= */
 
-  position: "absolute",
-  top: 10,
-  right: 10,
-  width: 30,
-  height: 30,
-  borderRadius: 11,
-  backgroundColor: "#ffdae9",
-  alignItems: 'center',
-  justifyContent: 'center',
+    pressable: {
+      width: 55,
+      height: 42,
+
+      justifyContent: 'center',
+      alignItems: 'center',
+
+      borderRadius: 8,
+
+      marginBottom: 4,
     },
 
-    aboutText:{
- color: "#811d60",
-  fontSize: 12,
-  fontWeight: 'bold',
+    /* =========================
+       SELECTED TAB
+    ========================= */
+
+    selectedTab: {
+      backgroundColor: colors.selected,
+
+      borderRadius: 8,
+
+      transform: [
+        {
+          scale: 1.03,
+        },
+      ],
     },
 
-    aboutcard:{
-position: 'absolute',
-  top: 35,
-  left: 10,
-  right: 10,
-  bottom: 10,
-  alignItems: 'center',
-  justifyContent: 'center',
+    /* =========================
+       TAB TEXT
+    ========================= */
 
+    tabs: {
+      color: colors.secondary,
+
+      fontSize: 10,
+
+      fontWeight: 'bold',
+
+      textAlign: 'center',
     },
- aboutscreen:{
-width: 220,
-  minHeight: 150,
-  backgroundColor: "#fff5f7",
-  borderRadius: 12,
-  padding: 15,
-  alignItems: 'center',
-  borderWidth: 1,
-  borderColor: "#9a4a7f",
 
- },
- aboutdetails:{
-fontSize: 10,
-  color: "#9a4a7f",
-  lineHeight: 16,
-  textAlign: 'center',
-  fontWeight:"bold"
- },
- abouttitle:{
- fontSize: 19,
-  color: "#811d60",
-  fontWeight: 'bold',
-  marginBottom: 12,
- },
- closeButton:{
- position: "absolute",
-  top: 10,
-  right: 10,
-  width: 30,
-  height: 30,
-  borderRadius: 11,
-  backgroundColor: "#ffdae9",
-  alignItems: 'center',
-  justifyContent: 'center',
- },
- closeText:{
- fontSize: 10,
-  color: "#811d60",
-  fontWeight: 'bold',
- },
- themeButton:{
-position: "absolute",
-  top: 10,
-  right: 45,
-  width: 30,
-  height: 30,
-  borderRadius: 11,
-  backgroundColor: "#ffdae9",
-  alignItems: "center",
-  justifyContent: "center", 
-},
+    /* =========================
+       MAIN CONTENT AREA
+    ========================= */
 
-themeText:{
- color: "#811d60",
-  fontSize: 12,
-  fontWeight: "bold",
-},
-});
+    contentArea: {
+      flex: 1,
+
+      height: 220,
+
+      marginLeft: 7,
+
+      padding: 8,
+
+      backgroundColor: colors.screen,
+
+      borderRadius: 10,
+
+      borderWidth: 1,
+      borderColor: colors.secondary,
+
+      overflow: 'hidden',
+    },
+
+    /* =========================
+       ABOUT BUTTON
+    ========================= */
+
+    aboutButton: {
+      position: 'absolute',
+
+      top: 10,
+      right: 10,
+
+      width: 28,
+      height: 28,
+
+      borderRadius: 8,
+
+      backgroundColor: colors.selected,
+
+      borderWidth: 1,
+      borderColor: colors.primary,
+
+      alignItems: 'center',
+      justifyContent: 'center',
+
+      zIndex: 20,
+    },
+
+    aboutText: {
+      color: colors.primary,
+
+      fontSize: 13,
+
+      fontWeight: 'bold',
+    },
+
+    /* =========================
+       THEME BUTTON
+    ========================= */
+
+    themeButton: {
+      position: 'absolute',
+
+      top: 10,
+      right: 45,
+
+      width: 28,
+      height: 28,
+
+      borderRadius: 8,
+
+      backgroundColor: colors.selected,
+
+      borderWidth: 1,
+      borderColor: colors.primary,
+
+      alignItems: 'center',
+      justifyContent: 'center',
+
+      zIndex: 20,
+    },
+
+    themeText: {
+      color: colors.primary,
+
+      fontSize: 13,
+
+      fontWeight: 'bold',
+    },
+
+    /* =========================
+       ABOUT CARD
+    ========================= */
+
+    aboutcard: {
+      position: 'absolute',
+
+      top: 35,
+      left: 0,
+      right: 0,
+      bottom: 0,
+
+      alignItems: 'center',
+      justifyContent: 'center',
+
+      backgroundColor: 'rgba(0,0,0,0.15)',
+
+      zIndex: 50,
+    },
+
+    /* =========================
+       ABOUT SCREEN
+    ========================= */
+
+    aboutscreen: {
+      width: 235,
+
+      minHeight: 170,
+
+      backgroundColor: colors.screen,
+
+      borderRadius: 14,
+
+      padding: 18,
+
+      alignItems: 'center',
+
+      borderWidth: 2,
+      borderColor: colors.primary,
+
+      shadowOpacity: 0.2,
+      shadowRadius: 8,
+      shadowOffset: {
+        width: 0,
+        height: 4,
+      },
+
+      elevation: 6,
+    },
+
+    /* =========================
+       ABOUT TITLE
+    ========================= */
+
+    abouttitle: {
+      fontSize: 18,
+
+      color: colors.primary,
+
+      fontWeight: 'bold',
+
+      letterSpacing: 1,
+
+      marginBottom: 15,
+    },
+
+    /* =========================
+       ABOUT INFORMATION
+    ========================= */
+
+    aboutInfo: {
+      width: '100%',
+
+      alignItems: 'flex-start',
+    },
+
+    aboutdetails: {
+      fontSize: 10,
+
+      color: colors.secondary,
+
+      lineHeight: 20,
+
+      textAlign: 'left',
+
+      fontWeight: 'bold',
+
+      marginBottom: 2,
+    },
+
+    /* =========================
+       CLOSE BUTTON
+    ========================= */
+
+    closeButton: {
+      position: 'absolute',
+
+      top: 48,
+      right: 25,
+
+      width: 28,
+      height: 28,
+
+      borderRadius: 8,
+
+      backgroundColor: colors.selected,
+
+      borderWidth: 1,
+      borderColor: colors.primary,
+
+      alignItems: 'center',
+      justifyContent: 'center',
+
+      zIndex: 60,
+    },
+
+    closeText: {
+      fontSize: 17,
+
+      color: colors.primary,
+
+      fontWeight: 'bold',
+
+      lineHeight: 18,
+    },
+
+    /* =========================
+       DECORATIONS
+    ========================= */
+
+    decorations: {
+      flexDirection: 'row',
+
+      alignItems: 'center',
+      justifyContent: 'center',
+
+      gap: 18,
+
+      marginTop: 12,
+    },
+
+    decoration: {
+      color: colors.primary,
+
+      fontSize: 15,
+
+      fontWeight: 'bold',
+    },
+
+    /* =========================
+       PLAYER CONTROLS
+    ========================= */
+
+    controls: {
+      flexDirection: 'row',
+
+      alignItems: 'center',
+      justifyContent: 'center',
+
+      gap: 15,
+
+      marginTop: 12,
+    },
+
+    controlButton: {
+      width: 38,
+      height: 38,
+
+      borderRadius: 19,
+
+      backgroundColor: colors.screen,
+
+      borderWidth: 2,
+      borderColor: colors.primary,
+
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+
+    controlText: {
+      color: colors.primary,
+
+      fontSize: 13,
+
+      fontWeight: 'bold',
+    },
+
+    playButton: {
+      width: 48,
+      height: 48,
+
+      borderRadius: 24,
+
+      backgroundColor: colors.selected,
+
+      borderWidth: 2,
+      borderColor: colors.primary,
+
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+
+    playText: {
+      color: colors.primary,
+
+      fontSize: 16,
+
+      fontWeight: 'bold',
+
+      marginLeft: 2,
+    },
+
+  });
+
 export default myApp;
